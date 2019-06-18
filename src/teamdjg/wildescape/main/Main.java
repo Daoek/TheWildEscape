@@ -1,7 +1,5 @@
-package me.teamdjg.wildescape.main;
+package teamdjg.wildescape.main;
 
-// BELANGRIJKE STUFF - Niet zomaar weggooien - dank u ;)
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,4 +18,4 @@ public class Main extends JavaPlugin implements Listener		// A CORE OF SOMETHING
 	}
 }
 
-// Einde van de Main class!!!! Kijk gerust verder, maar je zult niks vinden.
+// Einde van de Main class!!!! Kijk gerust verder, maars je zult niks vinden.
