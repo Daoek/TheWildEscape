@@ -18,4 +18,4 @@ public class Main extends JavaPlugin implements Listener		// A CORE OF SOMETHING
 	}
 }
 
-// Einde van de Main class!!!! Kijk gerust verder, maars je zult niks vinden.
+// Einde van de Main class!!!! Kijk gerust verder, maar je zult niks vinden.
