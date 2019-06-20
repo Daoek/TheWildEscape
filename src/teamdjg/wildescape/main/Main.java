@@ -3,19 +3,24 @@ package teamdjg.wildescape.main;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin implements Listener		// A CORE OF SOMETHING BIG!
+public class Main extends JavaPlugin implements Listener	
 {
 	public String pluginPrefix = "[DJG TWE] ";
 	
+	//plugin enabled
 	@Override
-	public void onEnable() {		// Wanneer de server start.
+	public void onEnable() 
+	{		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
+		
+		//give the Eventhandler the instance
+		new Eventhandler(this);
 	}
 	
+	//plugin disabled
 	@Override
-	public void onDisable() {		// Wanneer de server stopt
+	public void onDisable() 
+	{		
 		System.out.println(pluginPrefix + "PLUGIN DISABLED!");
 	}
 }
-
-// Einde van de Main class!!!! Kijk gerust verder, maar je zult niks vinden.
