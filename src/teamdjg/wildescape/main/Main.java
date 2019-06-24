@@ -41,8 +41,8 @@ public class Main extends JavaPlugin implements Listener
 	}
 	
 	//Time checker for midnight
-		public void scheduleTimer(Main plugin, World world) {
-		    plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		public void BorderTimer(World world) {
+		    this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 		        public void run() {
 		            long time = world.getTime();
 		            
