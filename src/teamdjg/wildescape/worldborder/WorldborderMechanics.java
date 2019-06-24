@@ -1,5 +1,6 @@
 package teamdjg.wildescape.worldborder;
 
+import net.md_5.bungee.api.ChatColor;
 import teamdjg.wildescape.main.Main;
 
 public class WorldborderMechanics 
@@ -22,7 +23,8 @@ public class WorldborderMechanics
 		else
 		{
 			amountToMove = mainclass.WorldBorderMin;
-			mainclass.WorldBorderIsRunning = false;
+			mainclass.MakeBorderSmallerOnMidNight = false;
+			mainclass.getServer().broadcastMessage(mainclass.pluginPrefix + ChatColor.GREEN + "The border will not move anymore");
 		}		
 		
 		mainclass.WorldBorderWorld.getWorldBorder().setSize(amountToMove, mainclass.WorldBorderSpeed);
@@ -51,8 +53,17 @@ public class WorldborderMechanics
 
 	public void BorderReset()
 	{
-		mainclass.WorldBorderWorld.getWorldBorder().setSize(mainclass.WorldBorderMax, 60);
+		mainclass.WorldBorderWorld.getWorldBorder().setSize(mainclass.WorldBorderMax, 30);
 		mainclass.WorldBorderCurrent = mainclass.WorldBorderMax;
-		mainclass.WorldBorderIsRunning = false;
+	}
+
+	public void BorderStopMoving()
+	{
+		mainclass.MakeBorderSmallerOnMidNight = false;
+	}
+
+	public void BorderResumeMoving()
+	{
+		mainclass.MakeBorderSmallerOnMidNight = true;
 	}
 }
