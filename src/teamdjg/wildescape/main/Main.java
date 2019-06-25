@@ -3,13 +3,13 @@ package teamdjg.wildescape.main;
 import org.bukkit.World;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.ChatColor;
 
-import net.md_5.bungee.api.ChatColor;
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
 
 public class Main extends JavaPlugin implements Listener 
 {
-	public String pluginPrefix = "[DJG TWE] ";
+	public String pluginPrefix = ChatColor.DARK_GRAY +  "[" + ChatColor.BLUE + "DJG TWE" + ChatColor.GRAY + "]";
 	
 	public WorldborderMechanics _WorldborderMechanics;	
 	public World WorldBorderWorld;	
