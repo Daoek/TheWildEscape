@@ -1,6 +1,7 @@
 package teamdjg.wildescape.main;
 
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
@@ -12,19 +13,22 @@ public class Main extends JavaPlugin implements Listener
 	public String pluginPrefix = ChatColor.DARK_GRAY +  "[" + ChatColor.BLUE + "DJG TWE" + ChatColor.GRAY + "]";
 	
 	public WorldborderMechanics _WorldborderMechanics;	
-	public World WorldBorderWorld;	
+	public String WorldBorderWorldName;	
 	public long WorldBorderSpeed;	
 	public boolean MakeBorderSmallerOnMidNight = false;
+	public Player ContactPlayerForWorldBorder;
 	
 	public int WorldBorderMax;
 	public int WorldBorderMin;
 	public int WorldBorderCurrent;
 	public int WordBorderDistance;
-
+	
 	
 	@Override
 	public void onEnable() 
-	{		
+	{	
+		//TO-DO load from configfile the worldborder values	
+		
 		//set up references
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
@@ -36,12 +40,15 @@ public class Main extends JavaPlugin implements Listener
 	
 	@Override
 	public void onDisable() 
-	{		
+	{	
+		//TO-DO save the current worldborder values to the configfile
+		
 		System.out.println(pluginPrefix + "PLUGIN DISABLED!");
 	}
 	
 	//Time checker for midnight
-		public void BorderTimer(World world) {
+		public void BorderTimer(World world)
+		{
 		    this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 		        public void run() {
 		            long time = world.getTime();
