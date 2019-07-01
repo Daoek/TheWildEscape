@@ -1,10 +1,15 @@
 package teamdjg.wildescape.main;
 
 import org.bukkit.World;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
+
+//Commands
+import teamdjg.wildescape.commands.TeamCreate;
+//
 
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
 
@@ -32,6 +37,10 @@ public class Main extends JavaPlugin implements Listener
 		//set up references
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
+		
+		//Load-in the commands!
+		//	TEAM COMMANDS
+		this.getCommand("team create").setExecutor((CommandExecutor)new TeamCreate());
 	
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
