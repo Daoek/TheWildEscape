@@ -1,6 +1,8 @@
 package teamdjg.wildescape.worldborder;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import teamdjg.wildescape.main.Main;
 
@@ -29,16 +31,21 @@ public class WorldborderMechanics
 				System.out.println(mainclass.pluginPrefix + ChatColor.WHITE + " Note: the min border cant'me below 0.");
 				System.out.println(mainclass.pluginPrefix + ChatColor.WHITE + " And the max border can't be equal or below the min border.");
 			}
-			return false;
+			return true;
 		}
 		else
 		{
-			return true;
+			return false;
 		}
 	}
 	
 	public void MakeBorderSmaller()
 	{
+		if(CheckVariablesBeforeMoving())
+		{
+			return;
+		}
+		
 		int amountToMove;
 		
 		if((mainclass.WorldBorderCurrent - mainclass.WordBorderDistance) >= mainclass.WorldBorderMin )
@@ -48,7 +55,7 @@ public class WorldborderMechanics
 		else
 		{
 			amountToMove = mainclass.WorldBorderMin;
-			mainclass.MakeBorderSmallerOnMidNight = false;
+			BorderStopMoving();
 			mainclass.getServer().broadcastMessage(mainclass.pluginPrefix + ChatColor.GREEN + "The border will not move anymore");
 		}		
 		
@@ -60,6 +67,11 @@ public class WorldborderMechanics
 	
 	public void MakeBorderBigger()
 	{
+		if(CheckVariablesBeforeMoving())
+		{
+			return;
+		}
+		
 		int amountToMove;
 		
 		if((mainclass.WorldBorderCurrent + mainclass.WordBorderDistance) <= mainclass.WorldBorderMax)
@@ -78,8 +90,17 @@ public class WorldborderMechanics
 
 	public void BorderReset()
 	{	
+		if(CheckVariablesBeforeMoving())
+		{
+			mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setSize(10000, 30);
+			mainclass.WorldBorderCurrent = 10000;
+			BorderStopMoving();
+			return;
+		}
+		
 		mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setSize(mainclass.WorldBorderMax, 30);
 		mainclass.WorldBorderCurrent = mainclass.WorldBorderMax;
+		BorderStopMoving();
 	}
 
 	public void BorderStopMoving()
@@ -90,5 +111,13 @@ public class WorldborderMechanics
 	public void BorderResumeMoving()
 	{
 		mainclass.MakeBorderSmallerOnMidNight = true;
+	}
+	
+	public void BorderSetCenter(Location centerlocation, Player p)
+	{
+		if(mainclass.WorldBorderWorldName == null || mainclass.WorldBorderWorldName == "")
+		{
+			
+		}
 	}
 }

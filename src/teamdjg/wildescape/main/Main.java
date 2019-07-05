@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
 //Commands
-import teamdjg.wildescape.commands.TeamCreate;
+import teamdjg.wildescape.teamCommands.TeamCreate;
 //
 
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
@@ -40,7 +40,7 @@ public class Main extends JavaPlugin implements Listener
 		
 		//Load-in the commands!
 		//	TEAM COMMANDS
-		this.getCommand("team create").setExecutor((CommandExecutor)new TeamCreate());
+		this.getCommand("team create").setExecutor((CommandExecutor) new TeamCreate());
 	
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
