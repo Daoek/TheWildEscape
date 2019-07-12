@@ -2,3 +2,9 @@ name: TheWildEscape
 version: 0.1
 main: teamdjg.wildescape.main.Main
 commands:
+    CreateTeam:
+        description: creates a team for the Wild Escape Game.
+        usage: /<command>
+    WorldborderSetup:
+        description: setup the worldborder variables and center.
+        usage: /<command> [border minimum(number)] [border maximum(number)] [border distance per night(number)] [border speed per night(number)]

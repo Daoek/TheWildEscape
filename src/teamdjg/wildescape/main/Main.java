@@ -1,21 +1,20 @@
 package teamdjg.wildescape.main;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.ChatColor;
 
 //Commands
 import teamdjg.wildescape.teamCommands.TeamCreate;
 //
-
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
+import teamdjg.wildescape.worldborderCommands.WorldborderSetupcommand;
 
 public class Main extends JavaPlugin implements Listener 
 {
-	public String pluginPrefix = ChatColor.DARK_GRAY +  "[" + ChatColor.BLUE + "DJG TWE" + ChatColor.GRAY + "]";
+	public String pluginPrefix = ChatColor.DARK_GRAY +  "[" + ChatColor.BLUE + "DJG TWE" + ChatColor.DARK_GRAY + "]";
 	
 	public WorldborderMechanics _WorldborderMechanics;	
 	public String WorldBorderWorldName;	
@@ -28,11 +27,13 @@ public class Main extends JavaPlugin implements Listener
 	public int WorldBorderCurrent;
 	public int WordBorderDistance;
 	
+	public boolean WorldborderSetupCheck = false;
+	public boolean WorldborderCenterCheck = false;
 	
 	@Override
 	public void onEnable() 
 	{	
-		//TO-DO load from configfile the worldborder values	
+		//TO-DO load from configfile the worldborder values		
 		
 		//set up references
 		new Eventhandler(this);
@@ -40,7 +41,8 @@ public class Main extends JavaPlugin implements Listener
 		
 		//Load-in the commands!
 		//	TEAM COMMANDS
-		this.getCommand("team create").setExecutor((CommandExecutor) new TeamCreate());
+		this.getCommand("CreateTeam").setExecutor(new TeamCreate(this));
+		this.getCommand("WorldborderSetup").setExecutor(new WorldborderSetupcommand(this));
 	
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
