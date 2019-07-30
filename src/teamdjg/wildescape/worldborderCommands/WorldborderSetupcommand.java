@@ -47,18 +47,25 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				}
 				catch(Exception e)
 				{
-					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You need to put numbers, not letters in the arguments.");
+					mainclass.ClearChat(p);
+					p.sendMessage(mainclass.ChatLine());
+					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + " You need to put numbers, not letters in the arguments.");
+					p.sendMessage(mainclass.ChatLine());
 					return true;
 				}
 				
 				//check if amount from the min max and the distance
-				if(distanceborder <= 0 || minborder < 0 || maxborder <= minborder || speedborder > -1)
+				if(distanceborder <= 0 || minborder < 0 || maxborder < minborder || speedborder < 0)
 				{
-					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "Your distance per night can be 0 or under, and your minimal border can't be below 0.");
-					p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Also your maximum border can't be below or equal to the minimal border.");
-					p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "And your speed for the border to move must be bigger than -1");
+					mainclass.ClearChat(p);
+					p.sendMessage(mainclass.ChatLine());
+					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "Your minimal border can't be below 0.");
+					p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Also your maximum border can't be below the minimal border.");
+					p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "And your distance for the border to move must be bigger than 0, also your speed from the border to move must be bigger then -1.");
+					p.sendMessage(mainclass.ChatLine());
 					return true;
 				}
+				
 				
 				mainclass.WorldBorderMin = minborder;
 				mainclass.WorldBorderMax = maxborder;
@@ -67,6 +74,20 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				mainclass.ContactPlayerForWorldBorder = p;
 				mainclass.WorldBorderWorldName = p.getWorld().getName();
 				mainclass.WorldborderSetupCheck = true;
+				
+				mainclass._WorldborderMechanics.BorderReset();
+				
+				mainclass.BorderTimer(p.getWorld());
+				
+				mainclass.ClearChat(p);
+				p.sendMessage(mainclass.ChatLine());
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Your variables where saved! :");
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Minimal border                   = " + String.valueOf(minborder));
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Maximal border                  = " + String.valueOf(maxborder));
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Speed for border to move    = " + String.valueOf(distanceborder));
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "distance for border to move = " + String.valueOf(speedborder));
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.RED + "To move the center from the border, stand on the block where you want the center and type /borderCenter.");
+				p.sendMessage(mainclass.ChatLine());
 			}
 		}
 		else
@@ -79,8 +100,10 @@ public class WorldborderSetupcommand implements CommandExecutor {
 	
 	void WrongArgsMessage(Player p)
 	{
-		p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "You don't have the good arguments!");
-		p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Type - /help WorldborderSetup - for more information ");
-		
+		mainclass.ClearChat(p);
+		p.sendMessage(mainclass.ChatLine());
+		p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You don't have the good arguments!");
+		p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Type - /help borderSetup - for more information.");
+		p.sendMessage(mainclass.ChatLine());
 	}
 }

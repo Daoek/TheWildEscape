@@ -16,13 +16,16 @@ public class WorldborderMechanics
 	
 	public boolean CheckVariablesBeforeMoving()
 	{
-		if(mainclass.WordBorderDistance <= 0 || mainclass.WorldBorderCurrent < 0 || mainclass.WorldBorderMin < 0 || mainclass.WorldBorderMax <= mainclass.WorldBorderMin || mainclass.WorldBorderSpeed == 0 || mainclass.WorldBorderWorldName == null || mainclass.WorldBorderWorldName == "")
+		if(mainclass.WordBorderDistance <= 0 || mainclass.WorldBorderCurrent < 0 || mainclass.WorldBorderMin < 0 || mainclass.WorldBorderMax < mainclass.WorldBorderMin || mainclass.WorldBorderSpeed == 0 || mainclass.WorldBorderWorldName == null || mainclass.WorldBorderWorldName == "")
 		{
 			if(mainclass.ContactPlayerForWorldBorder != null && mainclass.ContactPlayerForWorldBorder.isOnline())
 			{
+				mainclass.ClearChat(mainclass.ContactPlayerForWorldBorder);
+				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.ChatLine());
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + " Not all the information is filled in correctly.");
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.pluginPrefix + ChatColor.WHITE + " Note: the min border can't be below 0.");
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.pluginPrefix + ChatColor.WHITE + " And the max border can't be equal or below the min border.");
+				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.ChatLine());
 			}
 			else
 			{
@@ -106,6 +109,6 @@ public class WorldborderMechanics
 	
 	public void BorderSetCenter(Location centerlocation)
 	{
-		mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setCenter(centerlocation);
+		mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setCenter(centerlocation.getBlockX(), centerlocation.getBlockZ());
 	}
 }

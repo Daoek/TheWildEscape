@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import teamdjg.wildescape.teamCommands.TeamCreate;
 //
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
+import teamdjg.wildescape.worldborderCommands.WorldborderCentercommand;
 import teamdjg.wildescape.worldborderCommands.WorldborderSetupcommand;
 
 public class Main extends JavaPlugin implements Listener 
@@ -33,7 +34,7 @@ public class Main extends JavaPlugin implements Listener
 	@Override
 	public void onEnable() 
 	{	
-		//TO-DO load from configfile the worldborder values		
+		//TODO load from configfile the worldborder values		
 		
 		//set up references
 		new Eventhandler(this);
@@ -42,7 +43,8 @@ public class Main extends JavaPlugin implements Listener
 		//Load-in the commands!
 		//	TEAM COMMANDS
 		this.getCommand("CreateTeam").setExecutor(new TeamCreate(this));
-		this.getCommand("WorldborderSetup").setExecutor(new WorldborderSetupcommand(this));
+		this.getCommand("bordersetup").setExecutor(new WorldborderSetupcommand(this));
+		this.getCommand("bordercenter").setExecutor(new WorldborderCentercommand(this));
 	
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
@@ -52,13 +54,13 @@ public class Main extends JavaPlugin implements Listener
 	@Override
 	public void onDisable() 
 	{	
-		//TO-DO save the current worldborder values to the configfile
+		//TODO save the current worldborder values to the configfile
 		
 		System.out.println(pluginPrefix + "PLUGIN DISABLED!");
 	}
 	
 	//Time checker for midnight
-		public void BorderTimer(World world)
+	public void BorderTimer(World world)
 		{
 		    this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 		        public void run() {
@@ -80,4 +82,18 @@ public class Main extends JavaPlugin implements Listener
 		        }
 		    }, 1, 1);
 		}
+
+	public void ClearChat(Player p)
+	{
+		for(int i = 0; i > 5; i++)
+		{
+			p.sendMessage("=");
+		}
+	}
+
+	public String ChatLine()
+	{
+		String st = ChatColor.DARK_GRAY + "<-------------------------------------------->";
+		return st;
+	}
 }
