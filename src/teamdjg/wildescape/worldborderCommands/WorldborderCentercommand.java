@@ -12,7 +12,7 @@ public class WorldborderCentercommand implements CommandExecutor {
 	
 	Main mainclass;
 	
-	//get a reference to the mainclass
+	//get a reference to the mainclass 
 	public WorldborderCentercommand (Main plugin)
 	{
 		this.mainclass = plugin;
@@ -27,7 +27,10 @@ public class WorldborderCentercommand implements CommandExecutor {
 			
 			if(mainclass.WorldborderSetupCheck == false)
 			{
-				p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You first need to use the  - /bordersetup - before you can move the border");
+				mainclass.ClearChat(p);
+				p.sendMessage(mainclass.ChatLine());
+				p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You first need to use the  - /bordersetup - before you can move the center.");
+				p.sendMessage(mainclass.ChatLine());
 				return true;
 			}
 			
@@ -38,6 +41,8 @@ public class WorldborderCentercommand implements CommandExecutor {
 			p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "X:" + String.valueOf(p.getLocation().getBlockX()));
 			p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Z:" + String.valueOf(p.getLocation().getBlockZ()));
 			p.sendMessage(mainclass.ChatLine());
+			
+			mainclass.WorldborderCenterCheck = true;
 		}
 		else
 		{

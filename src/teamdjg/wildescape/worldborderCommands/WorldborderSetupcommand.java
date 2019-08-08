@@ -37,13 +37,13 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				int distanceborder;
 				long speedborder;
 				
-				//check if all types are correct
+				//check if all types are the right one
 				try 
 				{
 					minborder = Integer.parseInt(args[0]);
 					maxborder = Integer.parseInt(args[1]);
 					distanceborder = Integer.parseInt(args[2]);
-					speedborder = Long.parseLong(args[3]);
+					speedborder = Long.parseLong(args[3]); 
 				}
 				catch(Exception e)
 				{
@@ -54,7 +54,7 @@ public class WorldborderSetupcommand implements CommandExecutor {
 					return true;
 				}
 				
-				//check if amount from the min max and the distance
+				//check if variables from the minimal, max and distance
 				if(distanceborder <= 0 || minborder < 0 || maxborder < minborder || speedborder < 0)
 				{
 					mainclass.ClearChat(p);
@@ -66,7 +66,7 @@ public class WorldborderSetupcommand implements CommandExecutor {
 					return true;
 				}
 				
-				
+				//change variables
 				mainclass.WorldBorderMin = minborder;
 				mainclass.WorldBorderMax = maxborder;
 				mainclass.WordBorderDistance = distanceborder;
@@ -74,11 +74,8 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				mainclass.ContactPlayerForWorldBorder = p;
 				mainclass.WorldBorderWorldName = p.getWorld().getName();
 				mainclass.WorldborderSetupCheck = true;
-				
-				mainclass._WorldborderMechanics.BorderReset();
-				
-				mainclass.BorderTimer(p.getWorld());
-				
+								
+				//instantiation message
 				mainclass.ClearChat(p);
 				p.sendMessage(mainclass.ChatLine());
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Your variables where saved! :");

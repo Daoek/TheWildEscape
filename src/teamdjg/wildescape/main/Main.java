@@ -85,7 +85,7 @@ public class Main extends JavaPlugin implements Listener
 
 	public void ClearChat(Player p)
 	{
-		for(int i = 0; i > 5; i++)
+		for(int i = 0; i > 20; i++)
 		{
 			p.sendMessage("=");
 		}
