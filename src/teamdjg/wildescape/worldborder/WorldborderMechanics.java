@@ -111,4 +111,15 @@ public class WorldborderMechanics
 	{
 		mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setCenter(centerlocation.getBlockX(), centerlocation.getBlockZ());
 	}
+
+	public void SetBorderStart()
+	{
+		if(CheckVariablesBeforeMoving())
+		{
+			return;
+		}
+		
+		mainclass.getServer().getWorld(mainclass.WorldBorderWorldName).getWorldBorder().setSize(mainclass.WorldBorderMax,0);
+		mainclass.WorldBorderCurrent = mainclass.WorldBorderMax;
+	}
 }

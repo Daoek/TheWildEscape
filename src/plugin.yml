@@ -1,10 +1,7 @@
 name: TheWildEscape
-version: 0.1
+version: 1.0
 main: teamdjg.wildescape.main.Main
 commands:
-    CreateTeam:
-        description: creates a team for the Wild Escape Game.
-        usage: /<command>
     bordersetup:
         description: setup the worldborder variables.
         usage: /<command> [border minimum(number)] [border maximum(number)] [border distance per night(number)] [border speed per night(number)]
@@ -13,3 +10,19 @@ commands:
         description: place the center of the border on the place where you stand when activating the commmand.
         usage: /<command>
         aliases: [bordercenter, bcenter, bc]
+    borderstart:
+        description: Starts the game of wild escape. 
+        usage: /<command>
+        aliases: [borderstart, bstart, bst]
+    borderstop:
+        description: Resets en stops the wild escape game.
+        usage: /<command>
+        aliases: [borderstop, bstop]
+    borderpauze:
+        description: Pauzes the border from moving.
+        usage: /<command>
+        aliases: [borderpauze, bpauze, bp]
+    borderresume:
+        description: Resumes the border from moving.
+        usage: /<command>
+        aliases: [borderresume, bresume, br]        

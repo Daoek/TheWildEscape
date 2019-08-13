@@ -1,6 +1,8 @@
 package teamdjg.wildescape.worldborderCommands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Difficulty;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,6 +19,7 @@ public class WorldborderStartercommand implements CommandExecutor {
 		this.mainclass = plugin;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		
@@ -36,20 +39,35 @@ public class WorldborderStartercommand implements CommandExecutor {
 			return true;
 		}
 		
+		World gameWorld = mainclass.getServer().getWorld(mainclass.WorldBorderWorldName);
+		
 		//start game :
 		
+		mainclass.GameRunning = true;
 		//change difficulty
+		gameWorld.setDifficulty(Difficulty.getByValue(mainclass.gameDifficulty));
 		
-		//set day time
+		//set game time
+		gameWorld.setTime(mainclass.gameStartTime);
 		
 		//make world border move
+		mainclass._WorldborderMechanics.SetBorderStart();
 		
 		//start border clock
+		mainclass.BorderTimer(gameWorld);
+		mainclass._WorldborderMechanics.BorderResumeMoving();
 		
 		//start message
+		mainclass.getServer().broadcastMessage(mainclass.pluginPrefix + ChatColor.GOLD + "The game has begon. The last team alive will win.");
+		
+		//TODO clear inventory from all team members
 		
 		//TODO teleport teams
 
+		//TODO change gamemode for the players
+		
+		//TODO maybe a starter kit for the players?
+		
 		return true;
 		
 	}

@@ -6,22 +6,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-//Commands
-import teamdjg.wildescape.teamCommands.TeamCreate;
 //
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
 import teamdjg.wildescape.worldborderCommands.WorldborderCentercommand;
+import teamdjg.wildescape.worldborderCommands.WorldborderPauzecommand;
+import teamdjg.wildescape.worldborderCommands.WorldborderResumecommand;
 import teamdjg.wildescape.worldborderCommands.WorldborderSetupcommand;
+import teamdjg.wildescape.worldborderCommands.WorldborderStartercommand;
+import teamdjg.wildescape.worldborderCommands.WorldborderStopcommand;
 
 public class Main extends JavaPlugin implements Listener 
 {
 	public String pluginPrefix = ChatColor.DARK_GRAY +  "[" + ChatColor.BLUE + "DJG TWE" + ChatColor.DARK_GRAY + "]";
 	
+	//world border variables -------------------------
 	public WorldborderMechanics _WorldborderMechanics;	
 	public String WorldBorderWorldName;	
 	public long WorldBorderSpeed;	
 	public boolean MakeBorderSmallerOnMidNight = false;
 	public Player ContactPlayerForWorldBorder;
+	public boolean GameRunning = false;
 	
 	public int WorldBorderMax;
 	public int WorldBorderMin;
@@ -30,22 +34,37 @@ public class Main extends JavaPlugin implements Listener
 	
 	public boolean WorldborderSetupCheck = false;
 	public boolean WorldborderCenterCheck = false;
+	//------------------------------------------------
+	
+	//game variables ---------------------------------
+	public int gameDifficulty = 1;
+	public long gameStartTime = 0; //range from 0 - 18000
+	//------------------------------------------------
 	
 	@Override
 	public void onEnable() 
 	{	
 		//TODO load from configfile the worldborder values		
 		
+		
 		//set up references
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
 		
-		//Load-in the commands!
-		//	TEAM COMMANDS
-		this.getCommand("CreateTeam").setExecutor(new TeamCreate(this));
+		//Load-in the commands:	
+		
+		//Team Commands
+			//this.getCommand("CreateTeam").setExecutor(new TeamCreate(this));
+		//
+		
+		//Border commands
 		this.getCommand("bordersetup").setExecutor(new WorldborderSetupcommand(this));
 		this.getCommand("bordercenter").setExecutor(new WorldborderCentercommand(this));
-	
+		this.getCommand("borderstart").setExecutor(new WorldborderStartercommand(this));
+		this.getCommand("borderstop").setExecutor(new WorldborderStopcommand(this));
+		this.getCommand("borderpauze").setExecutor(new WorldborderPauzecommand(this));
+		this.getCommand("borderresume").setExecutor(new WorldborderResumecommand(this));
+		//
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
 		
