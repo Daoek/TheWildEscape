@@ -20,6 +20,15 @@ public class WorldborderStopcommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		
+		if(sender instanceof Player)
+		{
+			if(!sender.hasPermission(mainclass.borderstopPermission))
+			{
+				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR: you don't have permission for this plugin.");
+				return true;
+			}
+		}
+		
 		if(mainclass.GameRunning == false)
 		{
 			if (sender instanceof Player) 

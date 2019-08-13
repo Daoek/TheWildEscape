@@ -34,6 +34,13 @@ public class Main extends JavaPlugin implements Listener
 	
 	public boolean WorldborderSetupCheck = false;
 	public boolean WorldborderCenterCheck = false;
+	
+	public String bordersetupPermission = "wildescape.command.bordersetup";
+	public String bordercenterPermission = "wildescape.command.bordercenter";
+	public String borderstartPermission = "wildescape.command.borderstart";
+	public String borderstopPermission = "wildescape.command.borderstop";
+	public String borderpauzePermission = "wildescape.command.borderpauze";
+	public String borderresumePermission = "wildescape.command.borderresume";
 	//------------------------------------------------
 	
 	//game variables ---------------------------------

@@ -19,7 +19,16 @@ public class WorldborderCentercommand implements CommandExecutor {
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {				
+		
+		if(sender instanceof Player)
+		{
+			if(!sender.hasPermission(mainclass.bordercenterPermission))
+			{
+				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR: you don't have permission for this plugin.");
+				return true;
+			}
+		}
 		
 		if(sender instanceof Player)
 		{

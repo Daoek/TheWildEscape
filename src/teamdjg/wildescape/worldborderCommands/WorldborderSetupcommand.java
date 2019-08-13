@@ -22,6 +22,15 @@ public class WorldborderSetupcommand implements CommandExecutor {
 		
 		if(sender instanceof Player)
 		{
+			if(!sender.hasPermission(mainclass.bordersetupPermission))
+			{
+				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR: you don't have permission for this plugin.");
+				return true;
+			}
+		}
+		
+		if(sender instanceof Player)
+		{
 			Player p = (Player)sender;
 			
 			//check if there are 4 args
@@ -85,6 +94,8 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "distance for border to move = " + String.valueOf(speedborder));
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.RED + "To move the center from the border, stand on the block where you want the center and type /borderCenter.");
 				p.sendMessage(mainclass.ChatLine());
+				
+				mainclass._WorldborderMechanics.SetBorderStart();
 			}
 		}
 		else

@@ -23,6 +23,15 @@ public class WorldborderStartercommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
 		
+		if(sender instanceof Player)
+		{
+			if(!sender.hasPermission(mainclass.borderstartPermission))
+			{
+				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR: you don't have permission for this plugin.");
+				return true;
+			}
+		}
+		
 		if(mainclass.WorldborderCenterCheck == false)
 		{
 			if (sender instanceof Player) 
@@ -44,14 +53,13 @@ public class WorldborderStartercommand implements CommandExecutor {
 		//start game :
 		
 		mainclass.GameRunning = true;
+		
 		//change difficulty
 		gameWorld.setDifficulty(Difficulty.getByValue(mainclass.gameDifficulty));
 		
 		//set game time
 		gameWorld.setTime(mainclass.gameStartTime);
 		
-		//make world border move
-		mainclass._WorldborderMechanics.SetBorderStart();
 		
 		//start border clock
 		mainclass.BorderTimer(gameWorld);
