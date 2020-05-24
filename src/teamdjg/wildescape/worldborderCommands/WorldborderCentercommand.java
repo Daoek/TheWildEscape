@@ -52,6 +52,7 @@ public class WorldborderCentercommand implements CommandExecutor {
 			p.sendMessage(mainclass.ChatLine());
 			
 			mainclass.WorldborderCenterCheck = true;
+			mainclass.WorldCenter = p.getLocation();
 		}
 		else
 		{

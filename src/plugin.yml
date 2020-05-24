@@ -12,7 +12,7 @@ commands:
         aliases: [bordercenter, bcenter, bc]
     borderstart:
         description: Starts the game of wild escape. 
-        usage: /<command>
+        usage: /<command> <tp the command sender>
         aliases: [borderstart, bstart, bst]
     borderstop:
         description: Resets en stops the wild escape game.
