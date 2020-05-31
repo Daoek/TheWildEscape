@@ -74,12 +74,7 @@ public class WorldborderStartercommand implements CommandExecutor {
 		Random random = new Random();
 		
 		int minX = mainclass.WorldCenter.getBlockX() - (mainclass.WorldBorderMax/2);
-		int maxX = mainclass.WorldCenter.getBlockX() + (mainclass.WorldBorderMax/2);
 		int minZ = mainclass.WorldCenter.getBlockZ() - (mainclass.WorldBorderMax/2);
-		int maxZ = mainclass.WorldCenter.getBlockZ() + (mainclass.WorldBorderMax/2);
-		
-		int Xrange = minX + maxX;
-		int Zrange = minZ + maxZ;
 		
 		boolean tpCommandPlayer = true;
 		
@@ -95,8 +90,8 @@ public class WorldborderStartercommand implements CommandExecutor {
 		{
 			if(tpCommandPlayer == false || !(sender instanceof Player))
 			{
-				int X = minX + Math.abs(Math.round(Xrange * random.nextFloat()));
-				int Z = minX + Math.abs(Math.round(Zrange * random.nextFloat()));
+				int X = minX + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
+				int Z = minZ + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
 				int Y = getTopBlock(X, Z, player.getWorld());		
 				if(!(player.equals(sender)))
 				{
@@ -105,8 +100,8 @@ public class WorldborderStartercommand implements CommandExecutor {
 			}
 			else
 			{
-				int X = minX + Math.abs(Math.round(Xrange * random.nextFloat()));
-				int Z = minX + Math.abs(Math.round(Zrange * random.nextFloat()));
+				int X = minX + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
+				int Z = minZ + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
 				int Y = getTopBlock(X, Z, player.getWorld());		
 				player.teleport(new Location(player.getWorld(),X,Y,Z));		
 			}
