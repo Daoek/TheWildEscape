@@ -92,14 +92,14 @@ public class WorldborderStartercommand implements CommandExecutor {
 		{
 			if(tpCommandPlayer == false || !(sender instanceof Player))
 			{
-				int X = minX + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
-				int Z = minZ + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
+				int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
+				int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
 				int Y = getTopBlock(X, Z, player.getWorld());
 				
 				player.getInventory().clear();
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 50));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 960, 5));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 5));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
 				
 				if(!(player.equals(sender)))
 				{
@@ -108,15 +108,15 @@ public class WorldborderStartercommand implements CommandExecutor {
 			}
 			else
 			{
-				int X = minX + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
-				int Z = minZ + Math.abs(Math.round(mainclass.WorldBorderMax * random.nextFloat()));
+				int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
+				int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
 				int Y = getTopBlock(X, Z, player.getWorld());		
 				player.teleport(new Location(player.getWorld(),X,Y,Z));
 				
 				player.getInventory().clear();
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 50));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 960, 5));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 5));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
 			}
 			
 		}

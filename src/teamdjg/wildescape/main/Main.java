@@ -83,7 +83,7 @@ public class Main extends JavaPlugin implements Listener
 	public void onDisable() 
 	{	
 		//TODO save the current worldborder values to the configfile
-		
+		getServer().getScheduler().cancelTasks(this);
 		System.out.println(pluginPrefix + "PLUGIN DISABLED!");
 	}
 	
