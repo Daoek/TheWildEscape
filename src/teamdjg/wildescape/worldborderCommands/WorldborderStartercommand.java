@@ -73,10 +73,10 @@ public class WorldborderStartercommand implements CommandExecutor {
 		
 		Random random = new Random();
 		
-		int minX = mainclass.WorldCenter.getBlockX() - mainclass.WorldBorderMax;
-		int maxX = mainclass.WorldCenter.getBlockX() + mainclass.WorldBorderMax;
-		int minZ = mainclass.WorldCenter.getBlockZ() - mainclass.WorldBorderMax;
-		int maxZ = mainclass.WorldCenter.getBlockZ() + mainclass.WorldBorderMax;
+		int minX = mainclass.WorldCenter.getBlockX() - (mainclass.WorldBorderMax/2);
+		int maxX = mainclass.WorldCenter.getBlockX() + (mainclass.WorldBorderMax/2);
+		int minZ = mainclass.WorldCenter.getBlockZ() - (mainclass.WorldBorderMax/2);
+		int maxZ = mainclass.WorldCenter.getBlockZ() + (mainclass.WorldBorderMax/2);
 		
 		int Xrange = minX + maxX;
 		int Zrange = minZ + maxZ;
