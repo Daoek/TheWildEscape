@@ -60,12 +60,7 @@ public class Main extends JavaPlugin implements Listener
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
 		
-		//Load-in the commands:	
-		
-		//Team Commands
-			//this.getCommand("CreateTeam").setExecutor(new TeamCreate(this));
-		//
-		
+
 		//Border commands
 		this.getCommand("bordersetup").setExecutor(new WorldborderSetupcommand(this));
 		this.getCommand("bordercenter").setExecutor(new WorldborderCentercommand(this));
@@ -73,7 +68,6 @@ public class Main extends JavaPlugin implements Listener
 		this.getCommand("borderstop").setExecutor(new WorldborderStopcommand(this));
 		this.getCommand("borderpauze").setExecutor(new WorldborderPauzecommand(this));
 		this.getCommand("borderresume").setExecutor(new WorldborderResumecommand(this));
-		//
 		
 		System.out.println(pluginPrefix + "PLUGIN ENABLED!");
 		

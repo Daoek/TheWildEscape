@@ -67,6 +67,7 @@ public class WorldborderStartercommand implements CommandExecutor {
 		
 		
 		//start border clock
+		mainclass.getServer().getScheduler().cancelTasks(mainclass);
 		mainclass.BorderTimer(gameWorld);
 		mainclass._WorldborderMechanics.BorderResumeMoving();
 		
@@ -94,15 +95,14 @@ public class WorldborderStartercommand implements CommandExecutor {
 			{
 				int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
 				int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-				int Y = getTopBlock(X, Z, player.getWorld());
-				
-				player.getInventory().clear();
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
+				int Y = getTopBlock(X, Z, player.getWorld());	
 				
 				if(!(player.equals(sender)))
 				{
+					player.getInventory().clear();
+					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
 					player.teleport(new Location(player.getWorld(),X,Y,Z));
 				}	
 			}
