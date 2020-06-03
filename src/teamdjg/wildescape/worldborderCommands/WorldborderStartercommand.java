@@ -1,9 +1,12 @@
 package teamdjg.wildescape.worldborderCommands;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -91,39 +94,41 @@ public class WorldborderStartercommand implements CommandExecutor {
 		
 		for(Player player : mainclass.getServer().getOnlinePlayers())
 		{
-			if(tpCommandPlayer == false || !(sender instanceof Player))
+			//spreadPlayer location calculation
+			int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
+			int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
+			int Y = player.getWorld().getHighestBlockAt(new Location(player.getWorld(),X,0,Z)).getY();	
+			//-----------
+			
+			//remove current potion effects
+			Collection<PotionEffect> effects = new ArrayList<>();
+			effects.addAll(player.getActivePotionEffects());
+			PotionEffect[] effectsArray = (PotionEffect[])effects.toArray();
+			
+			for(int i = 0; 1 < effectsArray.length; i++)
 			{
-				int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-				int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-				int Y = getTopBlock(X, Z, player.getWorld());	
-				
+				player.removePotionEffect(effectsArray[i].getType());
+			}
+			
+			effects.clear();
+			effectsArray = null;
+			//-------
+			
+			//Spread players
+			if(tpCommandPlayer == false || !(sender instanceof Player))
+			{				
 				if(!(player.equals(sender)))
 				{
-					player.getInventory().clear();
-					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
-					player.teleport(new Location(player.getWorld(),X,Y,Z));
+					setupPlayer(player, X, Y, Z);
 				}	
 			}
 			else
 			{
-				int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-				int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-				int Y = getTopBlock(X, Z, player.getWorld());		
-				player.teleport(new Location(player.getWorld(),X,Y,Z));
-				
-				player.getInventory().clear();
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
+				setupPlayer(player, X, Y, Z);
 			}
+			//------
 			
 		}
-		
-		//TODO clear inventory from all team members
-		
-		//TODO teleport teams
 
 		//TODO change gamemode for the players
 		
@@ -133,9 +138,18 @@ public class WorldborderStartercommand implements CommandExecutor {
 		
 	}
 	
-	public int getTopBlock(int X, int Z, World world)
+	public void setupPlayer(Player player, int xTpLocation, int yTpLocation, int zTpLocation)
 	{
-		return world.getHighestBlockAt(new Location(world,X,0,Z)).getY();
+		player.teleport(new Location(player.getWorld(),xTpLocation,yTpLocation,zTpLocation));
+		
+		player.getInventory().clear();
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
+		
+		player.setHealth(20);
+		player.setFoodLevel(20);
+		player.setGameMode(GameMode.SURVIVAL);
 	}
 
 }
