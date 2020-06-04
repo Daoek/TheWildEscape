@@ -1,11 +1,17 @@
 package teamdjg.wildescape.main;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 //
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
@@ -99,6 +105,10 @@ public class Main extends JavaPlugin implements Listener
 		            	// (print text and make border smaller) if enabled.
 		            	getServer().broadcastMessage(pluginPrefix + ChatColor.DARK_RED + "The border is becomming smaller !!"); 
 		            	_WorldborderMechanics.MakeBorderSmaller();
+		            	for(Player player : Bukkit.getServer().getOnlinePlayers())
+		        		{
+		            		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60, 1));
+		        		}
 		            }
 		            
 		        }
