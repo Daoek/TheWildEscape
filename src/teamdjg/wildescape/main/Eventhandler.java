@@ -17,7 +17,7 @@ public class Eventhandler implements Listener
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e)
 	{
-		main.getConfig().contains("PlayerRanks " + );
+		main.getConfig().contains("PlayerRanks ");
 		
 		/*
 		Player mainPlayer = null;
