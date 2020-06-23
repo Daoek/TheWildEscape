@@ -1,5 +1,8 @@
 package teamdjg.wildescape.main;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,7 +51,13 @@ public class Main extends JavaPlugin implements Listener
 	//game variables ---------------------------------
 	public int gameDifficulty = 1;
 	public long gameStartTime = 0; //range from 0 - 18000
+	public HashMap<UUID,PlayerRank> playerRanks;
+	
 	//------------------------------------------------
+	
+	/*
+	 * CarePackage variables
+	 */
 	
 	@Override
 	public void onEnable() 
@@ -59,7 +68,7 @@ public class Main extends JavaPlugin implements Listener
 		//set up references
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
-		
+		playerRanks = new HashMap<UUID, PlayerRank>();
 
 		//Border commands
 		this.getCommand("bordersetup").setExecutor(new WorldborderSetupcommand(this));

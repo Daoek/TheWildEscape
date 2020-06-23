@@ -1,14 +1,38 @@
 package teamdjg.wildescape.main;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Eventhandler implements Listener
 {
-	Main plugin;
+	Main main;
 	
-	public Eventhandler(Main plugin)
+	public Eventhandler(Main main)
 	{
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-		this.plugin = plugin;
+		main.getServer().getPluginManager().registerEvents(this, main);
+		this.main = main;
+	}
+	
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e)
+	{
+		main.getConfig().contains("PlayerRanks " + );
+		
+		/*
+		Player mainPlayer = null;
+		Player nearestPlayer = null;
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			if(p != mainPlayer)
+			{
+				if( mainPlayer.getLocation().distance(nearestPlayer.getLocation())  > mainPlayer.getLocation().distance(p.getLocation()))
+				{
+					nearestPlayer = p;
+				}
+			}
+		}
+		*/
+		
 	}
 }
