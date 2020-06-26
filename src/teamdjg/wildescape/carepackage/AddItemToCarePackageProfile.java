@@ -1,10 +1,10 @@
-package teamdjg.wildescape.commands;
+package teamdjg.wildescape.carepackage;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class AddCarePackages implements CommandExecutor {
+public class AddItemToCarePackageProfile implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {				
@@ -13,5 +13,4 @@ public class AddCarePackages implements CommandExecutor {
 		
 		return true;
 	}
-	
 }

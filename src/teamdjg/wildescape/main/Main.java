@@ -1,19 +1,24 @@
 package teamdjg.wildescape.main;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import teamdjg.wildescape.carepackage.CarePackageManager;
+import teamdjg.wildescape.carepackage.PlayerRank;
 //
 import teamdjg.wildescape.worldborder.WorldborderMechanics;
 import teamdjg.wildescape.worldborderCommands.WorldborderCentercommand;
@@ -55,8 +60,10 @@ public class Main extends JavaPlugin implements Listener
 	//game variables ---------------------------------
 	public int gameDifficulty = 1;
 	public long gameStartTime = 0; //range from 0 - 18000
-	public HashMap<UUID,PlayerRank> playerRanks;
 	
+	public CarePackageManager carepackageManager;
+	public HashMap<UUID,PlayerRank> playerRanks;
+	public List<Block> CarePackageChests;
 	//------------------------------------------------
 	
 	/*
@@ -68,12 +75,16 @@ public class Main extends JavaPlugin implements Listener
 	{	
 		//TODO load from configfile the worldborder values		
 		
-		
 		//set up references
 		new Eventhandler(this);
 		_WorldborderMechanics = new WorldborderMechanics(this);
+		
+		carepackageManager = new CarePackageManager(this);
 		playerRanks = new HashMap<UUID, PlayerRank>();
-
+		CarePackageChests = new ArrayList<>();
+		
+		CarePackageManager.reloadPlayerRanks(this, playerRanks);
+		
 		//Border commands
 		this.getCommand("bordersetup").setExecutor(new WorldborderSetupcommand(this));
 		this.getCommand("bordercenter").setExecutor(new WorldborderCentercommand(this));
