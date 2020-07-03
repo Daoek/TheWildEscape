@@ -2,6 +2,9 @@ name: TheWildEscape
 version: 1.0
 main: teamdjg.wildescape.main.Main
 commands:
+    TWE:
+        description: main command
+        usage: /<command> help
     bordersetup:
         description: setup the worldborder variables.
         usage: /<command> [border minimum(number)] [border maximum(number)] [border distance per night(number)] [border speed per night(number)]

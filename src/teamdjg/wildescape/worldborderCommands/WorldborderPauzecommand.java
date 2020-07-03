@@ -33,7 +33,6 @@ public class WorldborderPauzecommand implements CommandExecutor{
 		{
 			if (sender instanceof Player) 
 			{
-				mainclass.ClearChat((Player)sender);
 				sender.sendMessage(mainclass.ChatLine());
 				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You first need to start the game before you can pauze it.");
 				sender.sendMessage(mainclass.ChatLine());
@@ -55,7 +54,6 @@ public class WorldborderPauzecommand implements CommandExecutor{
 		{
 			if (sender instanceof Player) 
 			{
-				mainclass.ClearChat((Player)sender);
 				sender.sendMessage(mainclass.ChatLine());
 				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You can only pauze the game when its not already pauzed.");
 				sender.sendMessage(mainclass.ChatLine());

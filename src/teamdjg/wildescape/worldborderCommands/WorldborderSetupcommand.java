@@ -56,7 +56,6 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				}
 				catch(Exception e)
 				{
-					mainclass.ClearChat(p);
 					p.sendMessage(mainclass.ChatLine());
 					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + " You need to put numbers, not letters in the arguments.");
 					p.sendMessage(mainclass.ChatLine());
@@ -66,7 +65,6 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				//check if variables from the minimal, max and distance
 				if(distanceborder <= 0 || minborder < 0 || maxborder < minborder || speedborder < 0)
 				{
-					mainclass.ClearChat(p);
 					p.sendMessage(mainclass.ChatLine());
 					p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "Your minimal border can't be below 0.");
 					p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Also your maximum border can't be below the minimal border.");
@@ -85,7 +83,6 @@ public class WorldborderSetupcommand implements CommandExecutor {
 				mainclass.WorldborderSetupCheck = true;
 								
 				//instantiation message
-				mainclass.ClearChat(p);
 				p.sendMessage(mainclass.ChatLine());
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Your variables where saved! :");
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Minimal border                   = " + String.valueOf(minborder));
@@ -108,7 +105,6 @@ public class WorldborderSetupcommand implements CommandExecutor {
 	
 	void WrongArgsMessage(Player p)
 	{
-		mainclass.ClearChat(p);
 		p.sendMessage(mainclass.ChatLine());
 		p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You don't have the good arguments!");
 		p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Type - /help borderSetup - for more information.");

@@ -33,7 +33,6 @@ public class WorldborderStopcommand implements CommandExecutor {
 		{
 			if (sender instanceof Player) 
 			{
-				mainclass.ClearChat((Player)sender);
 				sender.sendMessage(mainclass.ChatLine());
 				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You can only stop a game if its running.");
 				sender.sendMessage(mainclass.ChatLine());

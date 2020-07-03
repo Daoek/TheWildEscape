@@ -1,13 +1,15 @@
 package teamdjg.wildescape.carepackage;
 
-import java.util.HashMap;
-
-import org.bukkit.Material;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarePackageProfile {
 
-	String name = null;
-	PlayerRank openingsRank = null;
-	HashMap<Material,Integer> items = new HashMap<Material, Integer>();
+	public String name = null;
+	public PlayerRank openingsRank = null;
+	public List<CarePackageItem> items = new ArrayList<>();
 	
+	public List<Integer> droppingsTimings = new ArrayList<>();
+	public int droppingsAmount = 1;
+	public Double droppingsAmountChance = 1D;
 }

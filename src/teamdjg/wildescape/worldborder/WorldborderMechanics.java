@@ -20,7 +20,6 @@ public class WorldborderMechanics
 		{
 			if(mainclass.ContactPlayerForWorldBorder != null && mainclass.ContactPlayerForWorldBorder.isOnline())
 			{
-				mainclass.ClearChat(mainclass.ContactPlayerForWorldBorder);
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.ChatLine());
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + " Not all the information is filled in correctly.");
 				mainclass.ContactPlayerForWorldBorder.sendMessage(mainclass.pluginPrefix + ChatColor.WHITE + " Note: the min border can't be below 0.");

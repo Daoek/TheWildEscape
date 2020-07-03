@@ -36,7 +36,6 @@ public class WorldborderCentercommand implements CommandExecutor {
 			
 			if(mainclass.WorldborderSetupCheck == false)
 			{
-				mainclass.ClearChat(p);
 				p.sendMessage(mainclass.ChatLine());
 				p.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You first need to use the  - /bordersetup - before you can move the center.");
 				p.sendMessage(mainclass.ChatLine());
@@ -44,7 +43,6 @@ public class WorldborderCentercommand implements CommandExecutor {
 			}
 			
 			mainclass._WorldborderMechanics.BorderSetCenter(p.getLocation());
-			mainclass.ClearChat(p);
 			p.sendMessage(mainclass.ChatLine());
 			p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "Your border center is placed at:");
 			p.sendMessage(mainclass.pluginPrefix + ChatColor.GOLD + "X:" + String.valueOf(p.getLocation().getBlockX()));

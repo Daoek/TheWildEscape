@@ -2,17 +2,18 @@ package teamdjg.wildescape.worldborderCommands;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -44,7 +45,6 @@ public class WorldborderStartercommand implements CommandExecutor {
 		{
 			if (sender instanceof Player) 
 			{
-				mainclass.ClearChat((Player)sender);
 				sender.sendMessage(mainclass.ChatLine());
 				sender.sendMessage(mainclass.pluginPrefix + ChatColor.DARK_RED + "ERROR:" + ChatColor.GOLD + "You first need to use the  - /bordercenter - before you can start the game");
 				sender.sendMessage(mainclass.ChatLine());
@@ -68,19 +68,13 @@ public class WorldborderStartercommand implements CommandExecutor {
 		//set game time
 		gameWorld.setTime(mainclass.gameStartTime);
 		
-		
-		//start border clock
+		//start world moving
 		mainclass.getServer().getScheduler().cancelTasks(mainclass);
-		mainclass.BorderTimer(gameWorld);
-		mainclass._WorldborderMechanics.BorderResumeMoving();
+		mainclass.worldTime(gameWorld, mainclass);
+		mainclass.MakeBorderSmallerOnMidNight = true;
 		
 		//start message
 		mainclass.getServer().broadcastMessage(mainclass.pluginPrefix + ChatColor.GOLD + "The game has begon. The last team alive will win.");
-		
-		Random random = new Random();
-		
-		int minX = mainclass.WorldCenter.getBlockX() - (mainclass.WorldBorderMax/2);
-		int minZ = mainclass.WorldCenter.getBlockZ() - (mainclass.WorldBorderMax/2);
 		
 		boolean tpCommandPlayer = true;
 		
@@ -93,25 +87,20 @@ public class WorldborderStartercommand implements CommandExecutor {
 		}
 		
 		for(Player player : mainclass.getServer().getOnlinePlayers())
-		{
-			//spreadPlayer location calculation
-			int X = minX + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-			int Z = minZ + Math.round(mainclass.WorldBorderMax * random.nextFloat());
-			int Y = player.getWorld().getHighestBlockAt(new Location(player.getWorld(),X,0,Z)).getY();	
-			//-----------
-			
+		{			
 			//remove current potion effects
-			Collection<PotionEffect> effects = new ArrayList<>();
-			effects.addAll(player.getActivePotionEffects());
-			PotionEffect[] effectsArray = (PotionEffect[])effects.toArray();
-			
-			for(int i = 0; 1 < effectsArray.length; i++)
+			if(player.getActivePotionEffects().isEmpty() == false)
 			{
-				player.removePotionEffect(effectsArray[i].getType());
+				Collection<PotionEffect> effects = new ArrayList<>();
+				effects.addAll(player.getActivePotionEffects());
+				
+				for(PotionEffect effect : effects)
+				{
+					player.removePotionEffect(effect.getType());
+				}
+				
+				effects.clear();
 			}
-			
-			effects.clear();
-			effectsArray = null;
 			//-------
 			
 			//Spread players
@@ -119,30 +108,26 @@ public class WorldborderStartercommand implements CommandExecutor {
 			{				
 				if(!(player.equals(sender)))
 				{
-					setupPlayer(player, X, Y, Z);
+					setupPlayer(player, mainclass.getRandomLocationInBorders(gameWorld));
 				}	
 			}
 			else
 			{
-				setupPlayer(player, X, Y, Z);
+				setupPlayer(player, mainclass.getRandomLocationInBorders(gameWorld));
 			}
 			//------
 			
 		}
-
-		//TODO change gamemode for the players
-		
-		//TODO maybe a starter kit for the players?
-		
 		return true;
 		
 	}
 	
-	public void setupPlayer(Player player, int xTpLocation, int yTpLocation, int zTpLocation)
+	public void setupPlayer(Player player, Location location)
 	{
-		player.teleport(new Location(player.getWorld(),xTpLocation,yTpLocation,zTpLocation));
-		
+		player.teleport(location);
+	
 		player.getInventory().clear();
+		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF,5));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1200, 50));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 19200, 4));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1200, 4));
