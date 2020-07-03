@@ -7,14 +7,19 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import teamdjg.wildescape.main.Main;
 
@@ -22,7 +27,7 @@ public class CarePackageManager {
 
 	Main main;
 	public List<CarePackageProfile> carePackageProfiles = new ArrayList<>();
-	public HashMap<Location, Material> chestLocations = new HashMap<Location, Material>(); 
+	public HashMap<Location, Material> chestLocations = new HashMap<Location, Material>();
 	
 	public CarePackageManager(Main main)
 	{
@@ -31,14 +36,21 @@ public class CarePackageManager {
 	}
 	
 	public void saveCarepackages(Location location, Material material)
-	{
+	{			
 		if(location == null || material == null)
 		{
 			return;
 		}
 		
-		chestLocations.put(location, material);
-		
+		try
+		{
+			this.chestLocations.put(location, material);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
 		String configLocation = location.getWorld().getName() + "/" + location.getBlockX() + "/" + location.getBlockY() + "/" + location.getBlockZ(); 
 		
 		main.getConfig().set("carepackages." + configLocation, material.toString());
@@ -46,17 +58,29 @@ public class CarePackageManager {
 	}
 	
 	public void loadCarepackagesFromConfig()
-	{
+	{	
+		
 		if(main.getConfig().contains("carepackages"))
 		{
 			Set<String> locationsConfig = main.getConfig().getConfigurationSection("carepackages").getKeys(false);
 			
 			for(String currentLocationConfig: locationsConfig)
 			{
-				String[] location = currentLocationConfig.split("/");
-				Location blockLocation = new Location(main.getServer().getWorld(location[0]),Integer.parseInt(location[1]),Integer.parseInt(location[2]),Integer.parseInt(location[3]));
-				Material blockMaterial = Material.valueOf(main.getConfig().getString("carepackages." + currentLocationConfig));
-				chestLocations.put(blockLocation, blockMaterial);
+				try
+				{
+					String[] location = currentLocationConfig.split("/");
+					Location blockLocation = new Location(main.getServer().getWorld(location[0]),Integer.parseInt(location[1]),Integer.parseInt(location[2]),Integer.parseInt(location[3]));
+					Material blockMaterial = Material.valueOf(main.getConfig().getString("carepackages." + currentLocationConfig));
+					
+					System.out.println(blockLocation.toString());
+					System.out.println(blockMaterial.toString());
+					
+					chestLocations.put(blockLocation, blockMaterial);
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -140,6 +164,22 @@ public class CarePackageManager {
 		chestInventory.clear();
 		chestInventory.setStorageContents(itemsInCarepackage);
 		
+		//Spawn the Firework, get the FireworkMeta.
+        Firework fw = (Firework) blockLocation.getWorld().spawnEntity(blockLocation, EntityType.FIREWORK);
+        FireworkMeta fwm = fw.getFireworkMeta();
+
+        //Create our effect with this
+        FireworkEffect effect = FireworkEffect.builder().flicker(true).withColor(Color.RED).with(Type.BALL_LARGE).withFade(Color.ORANGE).trail(true).build();
+       
+        //Then apply the effect to the meta
+        fwm.addEffect(effect);
+       
+        //Generate some random power and set it
+        fwm.setPower(3);
+       
+        //Then apply this to our rocket
+        fw.setFireworkMeta(fwm);
+		
 		return blockTypeOriginal;
 	}
 	
@@ -179,6 +219,23 @@ public class CarePackageManager {
 		}
 		chestInventory.clear();
 		chestInventory.setStorageContents(itemsInCarepackage);
+		
+
+		//Spawn the Firework, get the FireworkMeta.
+        Firework fw = (Firework) blockLocation.getWorld().spawnEntity(blockLocation, EntityType.FIREWORK);
+        FireworkMeta fwm = fw.getFireworkMeta();
+
+        //Create our effect with this
+        FireworkEffect effect = FireworkEffect.builder().flicker(true).withColor(Color.RED).with(Type.BALL_LARGE).withFade(Color.ORANGE).trail(true).build();
+       
+        //Then apply the effect to the meta
+        fwm.addEffect(effect);
+       
+        //Generate some random power and set it
+        fwm.setPower(3);
+       
+        //Then apply this to our rocket
+        fw.setFireworkMeta(fwm);
 		
 		return blockTypeOriginal;
 	}
@@ -251,23 +308,6 @@ public class CarePackageManager {
 				}
 				carePackageProfiles.add(profile);
 			}
-		}
-		else
-		{
-			System.out.println(main.pluginPrefix + ChatColor.RED + "No carepackageprofiles directory found in config.\n made a default carepackageprofile");
-			main.getConfig().set("carepackageprofiles.defaultprofile.openingrank", PlayerRank.HUNTERS.toString());
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.material", Material.COBBLESTONE.toString());
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.amount", 10);
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.amountchance", 0.5D);
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.material", Material.COBBLESTONE.toString());
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.amount", 10);
-			main.getConfig().set("carepackageprofiles.defaultprofile.itemslist.itemnameplaceholder.amountchance", 0.5D);
-			
-			main.getConfig().set("carepackageprofiles.defaultprofile.droppingstimings", "droppingTimings");
-			main.getConfig().set("carepackageprofiles.defaultprofile.droppingsamount", 5);
-			main.getConfig().set("carepackageprofiles.defaultprofile.droppingsamountchance", 0.5);
-			
-			main.saveConfig();
 		}
 	}
 	

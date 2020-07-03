@@ -193,8 +193,15 @@ public class Main extends JavaPlugin implements Listener
 		            		getServer().broadcastMessage(pluginPrefix + ChatColor.GREEN + "There are " + amount + " carepackages dropped");
 		            		for (int i = 0; i < amount; i++) 
 		            		{
-			            		Location randomLocation = getRandomLocationInBorders(world);
-								carepackageManager.saveCarepackages(randomLocation, carepackageManager.setBlockToACarePackageByProfile(profile, randomLocation));
+		            			try
+		            			{
+		            				Location randomLocation = getRandomLocationInBorders(world);
+									carepackageManager.saveCarepackages(randomLocation, carepackageManager.setBlockToACarePackageByProfile(profile, randomLocation));	
+		            			}
+		            			catch(Exception e)
+		            			{
+		            				e.printStackTrace();
+		            			}						
 							}
 		            	}
 		            }

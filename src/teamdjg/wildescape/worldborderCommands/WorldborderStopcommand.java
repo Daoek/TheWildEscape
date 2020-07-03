@@ -44,6 +44,7 @@ public class WorldborderStopcommand implements CommandExecutor {
 			return true;
 		}
 		
+		mainclass.getServer().getScheduler().cancelTasks(mainclass);
 		mainclass._WorldborderMechanics.BorderReset();
 		mainclass.GameRunning = false;
 		mainclass.getServer().broadcastMessage(mainclass.pluginPrefix + ChatColor.GOLD + "The game has now been stopped.");

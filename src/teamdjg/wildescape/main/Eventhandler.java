@@ -90,7 +90,7 @@ public class Eventhandler implements Listener
 	public void onBlockPlace(BlockPlaceEvent e)
 	{
 		Block placedBlock = e.getBlockPlaced();
-		
+
 		if(placedBlock.getType() == Material.CHEST)
 		{
 			int Y = placedBlock.getY();
@@ -124,6 +124,15 @@ public class Eventhandler implements Listener
 				}
 			}
 		}
+		
+		if(e.getBlock().getType() == Material.DIAMOND_BLOCK)
+		{
+			main.carepackageManager.loadCarepackagesFromConfig();
+			return;
+		}
+		
+		Location loc = e.getBlock().getLocation();
+		main.carepackageManager.saveCarepackages(loc, main.carepackageManager.setBlockToACarePackageByProfileName("test", loc));
 	}
 	
 	@EventHandler
